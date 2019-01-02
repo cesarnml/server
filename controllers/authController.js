@@ -1,6 +1,4 @@
 require('dotenv').config()
-const db = require('../data/db')
-const uuid = require('uuid/v4')
 const router = require('express').Router()
 const passport = require('passport')
 const redirectURL = `${process.env.CLIENT_URL}/signin`
@@ -31,7 +29,7 @@ function logout (req, res, next) {
 function socialLogin (req, res, next) {
   const token = generateToken(req.user)
   req.session.token = token
-  res.redirect(`${process.env.CLIENT_URL}/users`)
+  res.redirect(`${process.env.CLIENT_URL}/projects`)
 }
 
 module.exports = router
