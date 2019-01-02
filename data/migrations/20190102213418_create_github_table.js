@@ -1,6 +1,3 @@
-// TODO: Think seriously regarding how to gracefully manage
-// TODO: multiple auth strategies for a single user
-
 exports.up = function (knex, Promise) {
   return knex.schema.createTable('github', table => {
     table
@@ -15,6 +12,10 @@ exports.up = function (knex, Promise) {
     table.string('displayName')
     table.string('email').unique()
     table.string('photo')
+    table
+      .string('projectId')
+      .references('id')
+      .inTable('projects')
     table.timestamps(true, true)
   })
 }
