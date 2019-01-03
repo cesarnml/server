@@ -30,6 +30,7 @@ function socialLogin (req, res, next) {
   const token = generateToken(req.user)
   req.session.token = token
   res.redirect(`${process.env.CLIENT_URL}/user`)
+  console.log('user', user)
 }
 
 module.exports = router
