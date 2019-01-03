@@ -23,7 +23,7 @@ router.get(
 function logout (req, res, next) {
   req.session = null
   req.logout()
-  res.status(200).json({ msg: 'all okay' })
+  res.redirect(process.env.CLIENT_URL)
 }
 
 function socialLogin (req, res, next) {
