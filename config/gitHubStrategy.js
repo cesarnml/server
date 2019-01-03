@@ -21,7 +21,9 @@ module.exports = {
             username,
             displayName,
             email,
-            photo
+            photo,
+            isAdmin: false,
+            projectId: null
           }
           db('github')
             .insert(newUser)

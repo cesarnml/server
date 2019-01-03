@@ -13,7 +13,7 @@ function getUser (req, res, next) {
   if (user && user.id) {
     res.status(200).json({ user }) //* return logged in user data to frontend
   } else {
-    res.status(403).json({ msg: 'you must be logged in' }) //* user not logged in
+    res.status(403).json({ msg: 'user must be login' }) //* user not logged in
   }
 }
 
@@ -72,7 +72,7 @@ async function toggleProjectId (req, res, next) {
     }
   } else {
     //* NOT logged-in => Then
-    res.status(401).json({ msg: 'user must be logged in' })
+    res.status(401).json({ msg: 'user must be login' })
   }
 }
 
