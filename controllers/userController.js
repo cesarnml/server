@@ -12,8 +12,6 @@ function getUser (req, res, next) {
   const { user } = req //* if user has logged in, browser populates req with user object
   if (user && user.id) {
     res.status(200).json({ user }) //* return logged in user data to frontend
-  } else {
-    res.status(403).json({ msg: 'user must be login' }) //* user not logged in
   }
 }
 
