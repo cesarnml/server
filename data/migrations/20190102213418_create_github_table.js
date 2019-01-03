@@ -12,6 +12,7 @@ exports.up = function (knex, Promise) {
     table.string('displayName')
     table.string('email').unique()
     table.string('photo')
+    table.boolean('isAdmin').defaultTo(0)
     table
       .integer('projectId')
       .references('id')

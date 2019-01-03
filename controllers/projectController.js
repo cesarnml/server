@@ -9,6 +9,15 @@ const crudMethods = crudMethodMaker(db, 'projects')
 crudRouteMaker(router, crudMethods)
 
 //* Returns list of users signed up to project with given ID
-router.get('/:id/users')
+router.get('/:projectId/users', getProjectUsers)
+
+//* Route Handlers
+function getProjectUsers (req, res, next) {
+  const { projectId } = req.params
+  db('github')
+    .where({ projectId })
+    .then(users => res.status(200).json(users))
+    .catch(next)
+}
 
 module.exports = router
