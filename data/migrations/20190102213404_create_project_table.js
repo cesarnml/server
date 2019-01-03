@@ -6,7 +6,8 @@ exports.up = function (knex, Promise) {
       .notNull()
       .unique()
     table.text('description')
-    table.integer('teamCount')
+    table.integer('teamCount').defaultTo(0)
+    table.timestamps(true, true)
   })
 }
 
