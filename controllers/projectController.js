@@ -8,7 +8,7 @@ const crudRouteMaker = require('../helpers/crudRouteMaker')
 const crudMethods = crudMethodMaker(db, 'projects')
 crudRouteMaker(router, crudMethods)
 
-//* Returns list of users signed up to project with given ID
+//* Returns list of users signed up to project with given :projectId
 router.get('/:projectId/users', getProjectUsers)
 
 //* Route Handlers
