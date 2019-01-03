@@ -1,10 +1,13 @@
 const router = require('express').Router()
 const db = require('../data/db')
 
+//* Route returns current logged in user data
 router.get('/', getUser)
+
+//* Route to update projectID foreign key for logged in user
 router.put('/:projectId', toggleProjectId)
 
-//* Route Handler
+//* Route Handlers
 function getUser (req, res, next) {
   const { user } = req
   if (user && user.id) {
@@ -17,11 +20,11 @@ function getUser (req, res, next) {
 async function toggleProjectId (req, res, next) {
   const { user } = req
   const { projectId } = req.params
-  
+
   let project = await db('projects')
     .where({ id: Number(projectId) })
     .first()
-  let {teamCount} = project
+  let { teamCount } = project
 
   if (user && user.id) {
     const { id } = user
@@ -30,18 +33,32 @@ async function toggleProjectId (req, res, next) {
       db('github')
         .where({ id })
         .update({ projectId })
-        .then(count => res.status(200).json({msg: `user with id ${id} signs up for project with id ${projectId}`}))
-        .then(() => db('projects').where({id: Number(projectId)}).update({teamCount: ++teamCount}))
+        .then(count =>
+          res
+            .status(200)
+            .json({
+              msg: `user with id ${id} signs up for project with id ${projectId}`
+            })
+        )
+        .then(() =>
+          db('projects')
+            .where({ id: Number(projectId) })
+            .update({ teamCount: ++teamCount })
+        )
     } else if (!user.projectId && teamCount >= 5) {
-      res.status(203).json({msg: 'project is full (max 5 team members)'})
+      res.status(203).json({ msg: 'project is full (max 5 team members)' })
     } else {
       db('github')
         .where({ id })
         .update({ projectId: null })
-        .then(() => db('projects').where({id: Number(projectId)}).update({teamCount: --teamCount}))
+        .then(() =>
+          db('projects')
+            .where({ id: Number(projectId) })
+            .update({ teamCount: --teamCount })
+        )
     }
   } else {
-    res.status(203).json({msg: 'user must be logged in'})
+    res.status(203).json({ msg: 'user must be logged in' })
   }
 }
 
