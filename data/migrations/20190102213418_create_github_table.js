@@ -13,7 +13,7 @@ exports.up = function (knex, Promise) {
     table.string('email').unique()
     table.string('photo')
     table
-      .string('projectId')
+      .integer('projectId')
       .references('id')
       .inTable('projects')
     table.timestamps(true, true)
