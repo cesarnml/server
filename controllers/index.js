@@ -4,6 +4,6 @@ const projectRouter = require('./projectController')
 
 module.exports = server => {
   server.use('/auth', authRouter)
-  server.use('/user', userRouter)
-  server.use('/project', projectRouter)
+  server.use('/api/user', userRouter)
+  server.use('/api/projects', projectRouter)
 }

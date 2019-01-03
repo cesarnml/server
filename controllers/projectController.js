@@ -7,4 +7,6 @@ const crudRouteMaker = require('../helpers/crudRouteMaker')
 const crudMethods = crudMethodMaker(db, 'projects')
 crudRouteMaker(router, crudMethods)
 
+router.get('/:id/users')
+
 module.exports = router
