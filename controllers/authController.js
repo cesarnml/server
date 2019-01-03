@@ -1,7 +1,7 @@
 require('dotenv').config()
 const router = require('express').Router()
 const passport = require('passport')
-const redirectURL = `${process.env.CLIENT_URL}/signin`
+const redirectURL = process.env.CLIENT_URL;
 
 //* Import Helpers/Middleware
 const generateToken = require('../helpers/generateToken')
@@ -23,13 +23,13 @@ router.get(
 function logout (req, res, next) {
   req.session = null
   req.logout()
-  res.redirect(process.env.CLIENT_URL)
+  res.redirect(redirectURL)
 }
 
 function socialLogin (req, res, next) {
   const token = generateToken(req.user)
   req.session.token = token
-  res.redirect(process.env.CLIENT_URL)
+  res.redirect(redirectURL)
 }
 
 module.exports = router
