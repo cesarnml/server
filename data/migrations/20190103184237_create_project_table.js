@@ -10,6 +10,10 @@ exports.up = function (knex, Promise) {
     table.string('author')
     table.string('authorCohort')
     table.integer('teamCount').defaultTo(0)
+    table
+      .integer('collectionId')
+      .references('id')
+      .inTable('collections')
     table.timestamps(true, true)
   })
 }

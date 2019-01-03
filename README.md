@@ -32,15 +32,14 @@ On success: user redirected to frontendURL/user
   - If project teamCount >= 5: server responds - { msg: 'project is full. please select another project.' }
   
   - REGISTER-TO-PROJECT CASE: user logged-in AND user projectId=NULL:
-     - server registers user's projectID to specified project
-     - server increments teamCount by 1 for specified project
-     - server reponds: {msg: `user with id ${id} signed up to project with id ${projectId}`}
+    - server registers user's projectID to specified project
+    - server increments teamCount by 1 for specified project
+    - server responds: {msg: `user with id ${id} signed up to project with id ${projectId}`}
   
-  - DEREGISTER-FROM-PROJECT CASE: user logged-in AND user projectID is NOT_NULL:
-     - server deregisters user's projectID by reverting value to NULL
-     - server decrements teamCount by 1 from specific project
-     - server reponds: { msg: `user removed from project with id ${projectId}` }
+  - DE-REGISTER-FROM-PROJECT CASE: user logged-in AND user projectID is NOT_NULL:
+    - server de-registers user's projectID by reverting value to NULL
+    - server decrements teamCount by 1 from specific project
+    - server responds: { msg: `user removed from project with id ${projectId}` }
 
-  - If user NOT logged-in: 
-     - server responds: { msg: 'user must be login' }
-
+  - If user NOT logged-in:
+    - server responds: { msg: 'user must be login' }
