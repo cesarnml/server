@@ -29,8 +29,7 @@ function logout (req, res, next) {
 function socialLogin (req, res, next) {
   const token = generateToken(req.user)
   req.session.token = token
-  res.redirect(`${process.env.CLIENT_URL}/user`)
-  console.log('user', user)
+  res.redirect(process.env.CLIENT_URL)
 }
 
 module.exports = router
