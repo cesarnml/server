@@ -8,4 +8,12 @@ const crudRouteMaker = require('../helpers/crudRouteMaker')
 const crudMethods = crudMethodMaker(db, 'github')
 crudRouteMaker(router, crudMethods)
 
+router.get('/projectId/:projectId', getUsersByProjectId)
+
+function getUsersByProjectId (req, res, next) {
+  const { projectId } = req.params
+  db('github')
+    .where({ projectId })
+    .then(users => res.status(200).json({ users }))
+}
 module.exports = router
