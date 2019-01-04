@@ -5,11 +5,14 @@ const db = require('../data/db')
 router.get('/', getUser)
 
 //* Route to update projectID foreign key for logged in user
-router.put('/:projectId', toggleProjectId)
+router.get('/:projectId', toggleProjectId)
 
 //* Route Handlers
 function getUser (req, res) {
-  res.send(req.user)
+  db('github')
+    .where({ id: req.user.id })
+    .first()
+    .then(user => res.send(user))
 }
 
 async function toggleProjectId (req, res, next) {
@@ -22,6 +25,10 @@ async function toggleProjectId (req, res, next) {
     .first()
   let { teamCount } = project
 
+  let currentUser = await db('github')
+    .where({ id: req.user.id })
+    .first()
+
   if (teamCount >= 5) {
     return res
       .status(400)
@@ -31,8 +38,17 @@ async function toggleProjectId (req, res, next) {
   if (user && user.id) {
     //* is the user logged in? YES => then
     const { id } = user
+    console.log(
+      '\n 🦄 user',
+      user,
+      '\n 🦄 \n ',
+      'projectId',
+      projectId,
+      'currentUser.projectId',
+      currentUser.projectId
+    )
 
-    if (!user.projectId) {
+    if (!currentUser.projectId) {
       //* if user's projectId is null, sign-up user to project with projectID
       db('github')
         .where({ id })
@@ -61,7 +77,7 @@ async function toggleProjectId (req, res, next) {
         .then(() =>
           //* decrement teamCount for project with projectId
           db('projects')
-            .where({ id: Number(projectId) })
+            .where({ id: Number(currentUser.projectId) })
             .update({ teamCount: --teamCount })
         )
     }

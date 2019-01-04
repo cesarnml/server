@@ -1,7 +1,7 @@
 require('dotenv').config()
 const router = require('express').Router()
 const passport = require('passport')
-const redirectURL = process.env.CLIENT_URL;
+const redirectURL = process.env.CLIENT_URL
 
 //* Import Helpers/Middleware
 const generateToken = require('../helpers/generateToken')
@@ -10,7 +10,10 @@ const generateToken = require('../helpers/generateToken')
 router.get('/logout', logout)
 
 //* GitHub OAuth
-router.get('/github', passport.authenticate('github'))
+router.get('/github', passport.authenticate('github'), (req, res) => {
+  res.status(201).json({ user: req.user })
+})
+
 router.get(
   '/github/callback',
   passport.authenticate('github', {
