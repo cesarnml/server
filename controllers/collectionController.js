@@ -10,10 +10,26 @@ crudRouteMaker(router, crudMethods)
 
 router.get('/:collectionId/projects', getProjectsByCollectionId)
 
+router.get(
+  '/:collectionId/projects/members',
+  getProjectsJoinMembersByCollectionId
+)
+
 function getProjectsByCollectionId (req, res, next) {
   const { collectionId } = req.params
   db('projects')
     .where({ collectionId })
     .then(projects => res.status(200).json(projects))
 }
+
+function getProjectsJoinMembersByCollectionId (req, res, next) {
+  const { collectionId } = req.params
+  console.log(' 🦄 \n', collectionId)
+  db(`projects as p`)
+    .join('github as g', 'g.projectId', 'p.id')
+    .where('p.collectionId', 1)
+    .then(projects => res.status(200).json(projects))
+    .catch(next)
+}
+
 module.exports = router
