@@ -25,16 +25,18 @@ function getProjectsByCollectionId (req, res, next) {
 function getProjectsJoinMembersByCollectionId (req, res, next) {
   const { collectionId } = req.params
   console.log(' 🦄 \n', collectionId)
-  db(`projects as p`)
-    .join('github as g', 'g.projectId', 'p.id')
+  db(`collections as c`)
+    .leftJoin('projects as p', 'p.collectionId', 'c.id')
+    .leftJoin('github as g', 'g.projectId', 'p.id')
     .select(
+      'c.id as collectId',
       'p.id as projectId',
       'p.name as projectName',
       'p.description as projectDescription',
       'g.displayName as userDisplayName',
       'g.photo as photo'
     )
-    .where('p.collectionId', 1)
+    .where('c.id', collectionId)
     .then(projects => res.status(200).json(projects))
     .catch(next)
 }
