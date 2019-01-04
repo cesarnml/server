@@ -5,6 +5,7 @@ const db = require('../data/db')
 router.get('/', getUser)
 
 //* Route to update projectID foreign key for logged in user
+//! METHOD CHANGED FROM PUT TO GET FOR EASIER DEBUGGING
 router.get('/:projectId', toggleProjectId)
 
 //* Route Handlers
@@ -38,6 +39,7 @@ async function toggleProjectId (req, res, next) {
   if (user && user.id) {
     //* is the user logged in? YES => then
     const { id } = user
+    //! DEBUGGING REGISTER_DE-REGISTER LOGIC
     console.log(
       '\n 🦄 user',
       user,

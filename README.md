@@ -4,7 +4,7 @@
 
 ## /auth/github
 
-Begins OAuth flow. User is prompted to enter GitHub credentials. Upon successful authentication, 
+Begins OAuth flow. User is prompted to enter GitHub credentials. Upon successful authentication,
 GITHUB table populated with the following user information:
 
 - id: GitHubID
@@ -28,7 +28,7 @@ On success: user redirected to frontendURL/user
 
 ## /api/user/:projectId
 
-- PUT:
+- GET:
   - If project teamCount >= 5: server responds - { msg: 'project is full. please select another project.' }
   
   - REGISTER-TO-PROJECT CASE: user logged-in AND user projectId=NULL:
@@ -43,3 +43,6 @@ On success: user redirected to frontendURL/user
 
   - If user NOT logged-in:
     - server responds: { msg: 'user must be login' }
+
+- **NOTE USER MUST REGISTER AND DEREGISTER FROM A GIVEN PROJECT BEFORE ATTEMPTING TO JOIN A DIFFERENT PROJECT**
+- **THIS IS NEEDED TO KEEP teamCount accurate ATM**
