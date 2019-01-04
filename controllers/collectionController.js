@@ -14,6 +14,6 @@ function getProjectsByCollectionId (req, res, next) {
   const { collectionId } = req.params
   db('projects')
     .where({ collectionId })
-    .then(collection => res.status(200).json(collection))
+    .then(projects => res.status(200).json(projects))
 }
 module.exports = router
