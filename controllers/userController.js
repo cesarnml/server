@@ -10,10 +10,7 @@ router.get('/:projectId', toggleProjectId)
 
 //* Route Handlers
 function getUser (req, res) {
-  db('github')
-    .where({ id: req.user.id })
-    .first()
-    .then(user => res.send(user))
+  res.send(req.user)
 }
 
 async function toggleProjectId (req, res, next) {
