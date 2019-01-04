@@ -8,7 +8,7 @@ const crudRouteMaker = require('../helpers/crudRouteMaker')
 const crudMethods = crudMethodMaker(db, 'collections')
 crudRouteMaker(router, crudMethods)
 
-router.get('/:collectionId', getProjectsByCollectionId)
+router.get('/:collectionId/projects', getProjectsByCollectionId)
 
 function getProjectsByCollectionId (req, res, next) {
   const { collectionId } = req.params
