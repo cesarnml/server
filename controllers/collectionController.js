@@ -28,10 +28,11 @@ function getProjectsJoinMembersByCollectionId (req, res, next) {
   db(`projects as p`)
     .join('github as g', 'g.projectId', 'p.id')
     .select(
-      'p.id as id',
-      'p.name as name',
-      'p.description as description',
-      'g.displayName'
+      'p.id as projectId',
+      'p.name as projectName',
+      'p.description as projectDescription',
+      'g.displayName as userDisplayName',
+      'g.photo as photo'
     )
     .where('p.collectionId', 1)
     .then(projects => res.status(200).json(projects))
